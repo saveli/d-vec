@@ -1,12 +1,12 @@
 training: !!bool "true"
 device: "cuda"
-unprocessed_data: './TIMIT/*/*/*/*.wav'
+unprocessed_data: './timit/data/*/*/*/*.wav'
 ---
 data:
-    train_path: './train_tisv'
-    train_path_unprocessed: './TIMIT/TRAIN/*/*/*.wav'
-    test_path: './test_tisv'
-    test_path_unprocessed: './TIMIT/TEST/*/*/*.wav'
+    train_path: './timit/data/train_tisv'
+    train_path_unprocessed: './timit/data/TRAIN/*/*/*.wav'
+    test_path: './timit/data/test_tisv'
+    test_path_unprocessed: './timit/data/TEST/*/*/*.wav'
     data_preprocessed: !!bool "true" 
     sr: 16000
     nfft: 512 #For mel spectrogram preprocess
@@ -25,16 +25,16 @@ train:
     N : 4 #Number of speakers in batch
     M : 5 #Number of utterances per speaker
     num_workers: 0 #number of workers for dataloader
-    lr: 0.01 
-    epochs: 950 #Max training speaker epoch 
+    lr: 0.001
+    epochs: 960 #Max training speaker epoch
     log_interval: 30 #Epochs before printing progress
     log_file: './speech_id_checkpoint/Stats'
-    checkpoint_interval: 120 #Save model after x speaker epochs
+    checkpoint_interval: 30 #Save model after x speaker epochs
     checkpoint_dir: './speech_id_checkpoint'
     restore: !!bool "false" #Resume training from previous model path
 ---
 test:
     N : 4 #Number of speakers in batch
     M : 6 #Number of utterances per speaker
-    num_workers: 8 #number of workers for data laoder
+    num_workers: 8 #number of workers for data loader
     epochs: 10 #testing speaker epochs
